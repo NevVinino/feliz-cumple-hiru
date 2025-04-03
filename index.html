@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Feliz Cumpleaños!</title>
+    <style>
+        /* Video de fondo */
+        .background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+        
+        body {
+            text-align: center;
+            color: #b22222;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            padding: 20px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        h1 {
+            font-size: 3em;
+            text-shadow: 4px 4px 8px rgba(255, 0, 0, 0.7);
+        }
+
+        p {
+            font-size: 1.5em;
+            text-shadow: 2px 2px 5px rgba(255, 0, 0, 0.5);
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: transform 0.2s ease-in-out, background 0.3s;
+            margin: 10px;
+        }
+
+        .joji-btn { background: #b22222; }
+        .joji-btn:hover { background: #ff0000; }
+        
+        .anime-btn { background: #1e90ff; }
+        .anime-btn:hover { background: #00bfff; }
+        
+        .newjeans-btn { background: #ff69b4; }
+        .newjeans-btn:hover { background: #ff1493; }
+        
+        img {
+            margin-top: 20px;
+            width: 300px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(255, 0, 0, 0.5);
+        }
+
+        /* Contenedor del video */
+        .video-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .video-container video {
+            width: 80%;
+            max-width: 800px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(255, 0, 0, 0.7);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* Imagen que aparece cuando se presiona el botón Anime */
+        #animeImage {
+            display: none;
+            margin-top: 20px;
+            width: 300px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Video de fondo -->
+    <video class="background-video" id="bgVideo" autoplay loop muted>
+        <source src="necoArc.mp4" type="video/mp4">
+        Tu navegador no soporta videos en HTML5.
+    </video>
+
+    <h1>¡Feliz Cumpleaños Hiru! 🎉🎂</h1>
+    <p>Que este día esté lleno de alegría y felicidad.</p>
+
+    <button class="anime-btn" onclick="celebrateAnime()">Haz clic para celebrar con Neco Arc 🎥</button>
+    
+    <button class="joji-btn" onclick="showVideo('joji.mp4')">Haz clic para celebrar (Joji) 🎥</button>
+    
+    <button class="newjeans-btn" onclick="showVideo('newjeans.mp4')">Haz clic para celebrar (New Jeans) 🎥</button>
+
+    <img src="hiruhb.jpg" alt="Decoración de cumpleaños">
+
+    
+
+    <!-- Contenedor del video -->
+    <div class="video-container" id="videoContainer">
+        <span class="close-btn" onclick="hideVideo()">×</span>
+        <video id="birthdayVideo" controls>
+            <source src="" type="video/mp4">
+            Tu navegador no soporta el formato de video.
+        </video>
+    </div>  
+
+    <script>
+        let bgVideo = document.getElementById('bgVideo'); // Video de fondo
+
+        // Reproducir el video de fondo sin sonido inicialmente
+        window.onload = function() {
+            bgVideo.muted = true; // Aseguramos que el video de fondo inicie sin sonido
+            bgVideo.play(); // Reproducir el video al cargar
+        }
+
+        // Activar el sonido después de la interacción del usuario
+        document.body.addEventListener('click', function() {
+            bgVideo.muted = false; // Activar sonido
+        });
+
+        // Mostrar el video del botón y detener el fondo
+        function showVideo(videoFile) {
+            let videoElement = document.getElementById('birthdayVideo');
+            videoElement.src = videoFile;
+            document.getElementById('videoContainer').style.display = 'flex';
+            videoElement.play();
+            bgVideo.pause(); // Detener el video de fondo
+            bgVideo.muted = true; // Silenciar el video de fondo mientras se ve el otro video
+        }
+
+        // Ocultar el video y volver a reproducir el fondo
+        function hideVideo() {
+            let video = document.getElementById('birthdayVideo');
+            video.pause();
+            video.currentTime = 0;
+            document.getElementById('videoContainer').style.display = 'none';
+            bgVideo.play(); // Reproducir el video de fondo
+            bgVideo.muted = false; // Reactivar el sonido del fondo
+        }
+
+        // Función para el botón Anime: Mostrar imagen y reproducir audio
+        function celebrateAnime() {
+            let animeImage = document.getElementById('animeImage');
+            let animeAudio = document.getElementById('animeAudio');
+            
+            // Mostrar la imagen de anime
+            animeImage.style.display = 'block';
+            
+            // Reproducir el audio
+            animeAudio.play();
+        }
+    </script>
+
+</body>
+</html>
